@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Location and Camera Access</title>
+    <script>
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        }
+        
+        function showPosition(position) {
+            alert("Latitude: " + position.coords.latitude + "\nLongitude: " + position.coords.longitude);
+        }
+
+        function requestCamera() {
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then((stream) => {
+                    document.getElementById('videoElement').srcObject = stream;
+                })
+                .catch((error) => {
+                    alert("Camera access denied or unavailable.");
+                });
+        }
+    </script>
+</head>
+<body>
+    <h1>Access Permissions</h1>
+    <button onclick="getLocation()">Share Location</button>
+    <button onclick="requestCamera()">Allow Camera</button>
+    <video id="videoElement" autoplay></video>
+</body>
+</html>
